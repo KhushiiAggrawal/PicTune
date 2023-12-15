@@ -3,12 +3,13 @@ const uploaded_img = new Image();
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const downloadBtn =document.getElementById("downloadBtn");
+let checkInput = false;
 
 inputFile.addEventListener("change", (e) => {
   console.log("File selected");
   if (inputFile.files.length > 0) {
     const reader = new FileReader();
-
+    checkInput = true;
     reader.onload = function () {
       uploaded_img.src = reader.result;
       uploaded_img.onload = function () {
@@ -25,6 +26,7 @@ inputFile.addEventListener("change", (e) => {
     reader.onerror = function (error) {
       document.getElementById("uploadbtn").style.color = "black";
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      canvas.height="auto"
       console.error("Error reading the file:", error);
     };
 
@@ -45,17 +47,22 @@ inputFile.addEventListener("change", (e) => {
 convertBtn = document.getElementById("convertBtn");
 
 convertBtn.addEventListener("click", () => {
-  const imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
-  const data = imgData.data;
+  if(checkInput){
+    const imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
+    const data = imgData.data;
 
-  for(let i=0;i<data.length; i+=4){
-    const avg = (data[i]+data[i+1]+data[i+2])/3;
-    data[i]=avg;
-    data[i+1]= avg;
-    data[i+2] = avg;
+    for(let i=0;i<data.length; i+=4){
+      const avg = (data[i]+data[i+1]+data[i+2])/3;
+      data[i]=avg;
+      data[i+1]= avg;
+      data[i+2] = avg;
+    }
+    ctx.putImageData(imgData,0,0);
+    downloadBtn.style.display = "block";
+  }else{
+    alert("Please upload an image");
   }
-  ctx.putImageData(imgData,0,0);
-  downloadBtn.style.display = "block";
+  
 });
 
 downloadBtn.addEventListener("click",()=>{
