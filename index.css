@@ -2,6 +2,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
+  overflow-y: auto;
 }
 body {
   width: 100%;
@@ -48,7 +50,7 @@ body {
   left: 2%;
 }
 .canvas-container {
-  width: 100%;
+  width: 90%;
   position: relative;
   border: 5px dashed BLACK;
   background-color: white;
@@ -65,8 +67,8 @@ img{
 #uploadbtn {
   display: block;
   text-align: center;
-  position: absolute;
-  top: 50%;
+  position: fixed;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 120px;
@@ -74,7 +76,7 @@ img{
 }
 #convertBtn,#downloadBtn{
     width: 40%;
-    height: 10%;
+    height: 15%;
     background-color: black;
     border: 1px solid black;
     border-radius: 0.25rem;
@@ -86,6 +88,10 @@ img{
   background-color: green;
   border: 1px solid green;
 }
+.footer{
+  display: block;
+  bottom: 5%;
+}
 /* Media Query for Mobile Devices */
 @media only screen and (max-width: 600px) {
     .card {
@@ -95,5 +101,8 @@ img{
     #convertBtn,#downloadBtn{
         width: 80%;
         height: 10%;
+    }
+    #uploadbtn{
+      top:45%;
     }
   }
