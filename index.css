@@ -105,4 +105,7 @@ img{
     #uploadbtn{
       top:50%;
     }
+    *{
+      overflow-y: hidden;
+    }
   }
